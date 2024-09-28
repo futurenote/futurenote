@@ -18,7 +18,7 @@ const database = getDatabase(app);
 
 // Get URL parameters
 const urlParams = new URLSearchParams(window.location.search);
-const ms = urlParams.get('ms');
+const ms = urlParams.get('ms') * 100000;
 const uid = urlParams.get('uid');
 
 // Function to format the date
@@ -84,7 +84,7 @@ const handleFormSubmit = async (event) => {
             console.log('Message uploaded successfully!');
             // Disable the submit button after successful submission
             document.getElementById('submitButton').disabled = true;
-            window.location.href = '/sent';
+            window.location.href = '/main/sent';
         } catch (error) {
             console.error('Error uploading message:', error);
         }
