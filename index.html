@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timed Anonymous Message</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="bg1" class="form-container">
+        <div class="profile-container">
+            <img id="profile" src="./assets/profile.png" alt="profile">
+            <b><p id="username">@????</p></b>
+        </div>
+        <form id="messageForm" action="#" method="post">
+            <label for="message">Timed Anonymous Message:</label>
+            <p id="description">This message will be readable at a future date.</p>
+            <textarea id="message" name="message" rows="4" placeholder="Enter your message here..." required></textarea>
+            <button type="submit" id="submitButton">Submit</button>
+        </form>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
