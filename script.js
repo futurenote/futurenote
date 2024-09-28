@@ -18,7 +18,7 @@ const database = getDatabase(app);
 
 // Get URL parameters
 const urlParams = new URLSearchParams(window.location.search);
-const ms = urlParams.get('ms') * 100000;
+const ms = (parseInt(urlParams.get('ms')) * 100000).toString();
 const uid = urlParams.get('uid');
 
 // Function to format the date
