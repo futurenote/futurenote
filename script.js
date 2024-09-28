@@ -18,7 +18,7 @@ const database = getDatabase(app);
 
 // Get URL parameters
 const urlParams = new URLSearchParams(window.location.search);
-const ms = (parseInt(urlParams.get('ms')) * 100000).toString();
+const ms = urlParams.get('ms') * 100000;
 const uid = urlParams.get('uid');
 
 // Function to format the date
@@ -74,7 +74,7 @@ const handleFormSubmit = async (event) => {
 
         const messageData = {
             message: message,
-            ms: ms,
+            ms: ms.toString(),
             dateSent: dateSent,
             dateRead: dateRead
         };
