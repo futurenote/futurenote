@@ -17,7 +17,7 @@ const database = getDatabase(app);
 
 const urlParams = new URLSearchParams(window.location.search);
 const ms = urlParams.get('ms') * 100000;
-const username = urlParams.get('username');
+const username = urlParams.get('u');
 
 const formatDate = (ms) => {
     const date = new Date(ms);
