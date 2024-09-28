@@ -36,7 +36,7 @@ const findUidByUsername = async (username) => {
                 }
             }
         }
-        return null; 
+        return null;
     } catch (error) {
         console.error('Error fetching users:', error);
         return null;
@@ -80,7 +80,6 @@ const handleFormSubmit = async (event) => {
     if (ms && uid) {
         const dateSent = formatDate(Date.now());
         const dateRead = formatDate(Number(ms));
-
         const messageRef = push(ref(database, `users/${uid}/messages`));
 
         const messageData = {
@@ -104,7 +103,7 @@ const handleFormSubmit = async (event) => {
 };
 
 const init = async () => {
-    const uid = await findUidByUsername(username);  // Find uid by username
+    const uid = await findUidByUsername(username);
     if (ms && uid) {
         updateDescription(ms);
         loadUserProfile(uid);
@@ -114,5 +113,4 @@ const init = async () => {
 };
 
 init();
-
 document.getElementById('messageForm').addEventListener('submit', handleFormSubmit);
