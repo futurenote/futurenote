@@ -1,4 +1,3 @@
-// Firebase Initialization
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js';
 import { getDatabase, ref, set, push, get, child } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js';
 
@@ -16,38 +15,50 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-// Get URL parameters
 const urlParams = new URLSearchParams(window.location.search);
 const ms = urlParams.get('ms') * 100000;
-const uid = urlParams.get('uid');
+const username = urlParams.get('username');
 
-// Function to format the date
 const formatDate = (ms) => {
     const date = new Date(ms);
     return date.toLocaleString('default', { year: 'numeric', month: 'long', day: 'numeric' });
 };
 
-// Function to update description with readable date
-const updateDescription = () => {
-    if (ms && uid) {
+const findUidByUsername = async (username) => {
+    const dbRef = ref(database, 'users');
+    try {
+        const snapshot = await get(dbRef);
+        if (snapshot.exists()) {
+            const usersData = snapshot.val();
+            for (const uid in usersData) {
+                if (usersData[uid].username === username) {
+                    return uid;
+                }
+            }
+        }
+        return null; 
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        return null;
+    }
+};
+
+const updateDescription = (ms) => {
+    if (ms) {
         const dateRead = formatDate(Number(ms));
         document.getElementById('description').textContent = `This message will be readable at ${dateRead}.`;
     }
 };
 
-// Fetch user profile data from Firebase
-const loadUserProfile = async () => {
+const loadUserProfile = async (uid) => {
     if (uid) {
-        const dbRef = ref(database);
+        const dbRef = ref(database, `users/${uid}`);
         try {
-            const snapshot = await get(child(dbRef, `users/${uid}`));
+            const snapshot = await get(dbRef);
             if (snapshot.exists()) {
                 const profileData = snapshot.val();
-
                 const username = profileData.username || 'Unknown';
-                const profilePic = profileData.profile || './assets/profile.png'; // Fallback to default profile
-
-                // Update the DOM with profile data
+                const profilePic = profileData.profile || './assets/profile.png';
                 document.getElementById('username').textContent = `@${username}`;
                 document.getElementById('profile').src = profilePic;
             } else {
@@ -61,10 +72,10 @@ const loadUserProfile = async () => {
     }
 };
 
-// Handle form submission
 const handleFormSubmit = async (event) => {
     event.preventDefault();
     const message = document.getElementById('message').value;
+    const uid = await findUidByUsername(username);
 
     if (ms && uid) {
         const dateSent = formatDate(Date.now());
@@ -82,7 +93,6 @@ const handleFormSubmit = async (event) => {
         try {
             await set(messageRef, messageData);
             console.log('Message uploaded successfully!');
-            // Disable the submit button after successful submission
             document.getElementById('submitButton').disabled = true;
             window.location.href = '/main/sent';
         } catch (error) {
@@ -93,13 +103,16 @@ const handleFormSubmit = async (event) => {
     }
 };
 
-// Load the profile and update the description when the page loads
-if (ms && uid) {
-    updateDescription();
-    loadUserProfile();
-} else {
-    document.getElementById('bg1').style.display = 'none';
-}
+const init = async () => {
+    const uid = await findUidByUsername(username);  // Find uid by username
+    if (ms && uid) {
+        updateDescription(ms);
+        loadUserProfile(uid);
+    } else {
+        document.getElementById('bg1').style.display = 'none';
+    }
+};
 
-// Attach form submission handler
+init();
+
 document.getElementById('messageForm').addEventListener('submit', handleFormSubmit);
