@@ -1,5 +1,5 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js';
-import { getDatabase, ref, set, push, get, child } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js';
+import { getDatabase, ref, set, push, get } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js';
 
 const firebaseConfig = {
     apiKey: "AIzaSyB4d-Qu0es_2LvfteHhVPu7UK82qVy0MSg",
@@ -18,6 +18,16 @@ const database = getDatabase(app);
 const urlParams = new URLSearchParams(window.location.search);
 const ms = urlParams.get('ms') * 100000;
 const username = urlParams.get('u');
+
+// Helper to show the loading dialog
+const showLoadingDialog = () => {
+    document.getElementById('loadingDialog').style.display = 'flex';
+};
+
+// Helper to hide the loading dialog
+const hideLoadingDialog = () => {
+    document.getElementById('loadingDialog').style.display = 'none';
+};
 
 const formatDate = (ms) => {
     const date = new Date(ms);
@@ -90,12 +100,22 @@ const handleFormSubmit = async (event) => {
         };
 
         try {
+            // Show the loading dialog
+            showLoadingDialog();
+
+            // Upload the message to Firebase
             await set(messageRef, messageData);
             console.log('Message uploaded successfully!');
+
+            // Disable the submit button after successful submission
             document.getElementById('submitButton').disabled = true;
+
+            // Redirect after submission (you can add a small delay if needed)
             window.location.href = '/main/sent';
         } catch (error) {
             console.error('Error uploading message:', error);
+            // Hide the loading dialog if there's an error
+            hideLoadingDialog();
         }
     } else {
         console.error('ms or uid parameter is missing.');
@@ -112,5 +132,8 @@ const init = async () => {
     }
 };
 
+// Initialize the profile and form
 init();
+
+// Attach form submission handler
 document.getElementById('messageForm').addEventListener('submit', handleFormSubmit);
