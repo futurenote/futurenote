@@ -8,10 +8,12 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
 }
-
+#bg1 {
+    display:none;
+}
 /* Styling the form container */
 .form-container {
-	display: none;
+    display: none;
     /* text-align: center; */
     background-color: white;
     padding: 20px;
@@ -40,7 +42,7 @@ form textarea {
 
 /* Styling the submit button */
 form button {
-	width: 100%;
+    width: 100%;
     background-color: #CDDC39;
     color: white;
     border: none;
@@ -56,17 +58,17 @@ form button:hover {
 }
 
 #profile {
-	border-radius: 50%;
-	border: 1px solid #ccc;
-	background-color: white;
-	display: block;
-	margin: 0 0;
-	height: 34px;
-	width: 34px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    background-color: white;
+    display: block;
+    margin: 0 0;
+    height: 34px;
+    width: 34px;
 }
 
 .profile-container {
-	display: flex;
+    display: flex;
     flex-direction: row;
     padding: 0;
     height: 34px;
@@ -74,16 +76,16 @@ form button:hover {
 }
 
 #username {
-	font-size: 18px;
-	padding: 8px 0 0 6px;
-	margin: 0;
+    font-size: 18px;
+    padding: 8px 0 0 6px;
+    margin: 0;
 }
 
 #description {
-	font-size: 12px;
-	padding: 0;
-	margin: 0 0 8px 4px;
-	color: #5D5D5D;
+    font-size: 12px;
+    padding: 0;
+    margin: 0 0 8px 4px;
+    color: #5D5D5D;
 }
 
 /* Loading dialog styles */
