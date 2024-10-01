@@ -32,14 +32,15 @@ form label {
 
 form input {
     width: 100%;
-    height: 100px; /* This makes the input box taller, like a textarea */
+    height: 100px; /* Make the input look like a textarea */
     padding: 10px;
     font-size: 14px;
     margin-bottom: 15px;
-    border: 1px solid #ccc;
+    border: 1px solid #ccc; /* Same border as textarea */
     border-radius: 4px;
-    box-sizing: border-box; /* Ensures padding is within the element */
-    resize: none; /* Prevents resizing for a consistent look */
+    background-color: #f9f9f9; /* Light background, similar to textarea */
+    box-sizing: border-box; /* Ensure padding fits within the element's width */
+    color: #333; /* Text color */
 }
 
 /* Styling the submit button */
