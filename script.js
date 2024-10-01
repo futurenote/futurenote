@@ -71,7 +71,7 @@ const loadUserProfile = async (uid) => {
                 const profilePic = profileData.profile || './assets/profile.png';
                 document.getElementById('username').textContent = `@${username}`;
                 document.getElementById('profile').src = profilePic;
-                document.getElementById('bg1').style.display = 'flex';
+                document.getElementById('bg1').style.display = 'block';
             } else {
                 console.log('No profile data available');
                 document.getElementById('bg1').style.display = 'none';
