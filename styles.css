@@ -11,6 +11,7 @@ body {
 
 /* Styling the form container */
 .form-container {
+	display: none;
     /* text-align: center; */
     background-color: white;
     padding: 20px;
